@@ -42,7 +42,7 @@ function add_user() {
     else
         useradd opsadmin -m -s /bin/bash -d /home/opsadmin
         sleep1
-        echo "test@lfj2021" | passwd --stdin opsadmin > /dev/null 2>&1
+        echo "test1234" | passwd --stdin opsadmin > /dev/null 2>&1
         echo "add user success"
     fi
 }
