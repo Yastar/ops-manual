@@ -20,6 +20,20 @@ sleep 3s
 if [ $? = 0 ];then
     echo "finished"
 
-/sbin/blkid ${new_disk_path}1
+mkdir -p /data
 
 sleep 1s
+
+new_disk_uuid=` blkid ${new_disk_path}1 | awk '{print$2}' `
+
+echo "${new_disk_uuid} /data    ext4    defaults    0 0" >> /etc/fstab
+
+sleep 1s
+
+mount -a
+
+mount | grep ${new_disk_path}1
+if [ $? = 0 ];then
+    echo "add new disk successful"
+else
+    echo "add disk failed"
