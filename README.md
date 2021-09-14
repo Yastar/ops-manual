@@ -1,3 +1,1 @@
 # ops-manual
-
-# test
