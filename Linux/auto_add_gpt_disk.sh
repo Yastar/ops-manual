@@ -19,6 +19,7 @@ sleep 3s
 
 if [ $? = 0 ];then
     echo "finished"
+fi
 
 mkdir -p /data
 
@@ -37,3 +38,4 @@ if [ $? = 0 ];then
     echo "add new disk successful"
 else
     echo "add disk failed"
+fi
