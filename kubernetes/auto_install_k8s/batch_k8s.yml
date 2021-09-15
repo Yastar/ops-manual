@@ -1,8 +1,9 @@
 ---
 - hosts: all
   remote_user: root
-  vars:
-    http_port: 8088
+  # 设置env
+  # vars:
+  #   http_port: 8088
   
   tasks:
     - name: yum install net-tools
@@ -27,13 +28,26 @@
         dest: /opt/scripts/
         mode: 0755
       with_items:
-        - { src: '/root/auto_add_gpt_disk.sh'}
+        # - { src: '/root/auto_add_gpt_disk.sh'}
         - { src: '/root/auto_install_docker.sh'}
-    - name: run add_disk_sh
-      command: /bin/bash /opt/scripts/auto_add_gpt_disk.sh
+    # - name: run add_disk_sh
+    #   command: /bin/bash /opt/scripts/auto_add_gpt_disk.sh
     - name: run add_docker_sh
       command: /bin/bash /opt/scripts/auto_install_docker.sh
 
+---
 - hosts: k8s-master
   tasks:
-    
+    - name: yum install wget
+      yum:
+        name: wget
+        state: present
+    - name: wget kube-flannel file
+      command: "wget -O /opt/kube-flannel.yml https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml"
+    - name: copy auto_install_k8s_master.sh
+      copy:
+        src: /root/auto_install_k8s_master.sh
+        dest: /opt/scripts/
+        mode: 0755
+    - name: run scripts
+      command: "/bin/bash /opt/scripts/auto_install_k8s_master.sh"
