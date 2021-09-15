@@ -1,5 +1,5 @@
 ---
-- hosts: k8s
+- hosts: all
   remote_user: root
   vars:
     http_port: 8088
@@ -33,3 +33,7 @@
       command: /bin/bash /opt/scripts/auto_add_gpt_disk.sh
     - name: run add_docker_sh
       command: /bin/bash /opt/scripts/auto_install_docker.sh
+
+- hosts: k8s-master
+  tasks:
+    

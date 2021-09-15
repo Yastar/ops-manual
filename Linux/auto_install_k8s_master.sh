@@ -7,7 +7,7 @@ local_interface_name=`ip addr | grep '^[0-9]' | egrep 'ens|eth' | awk -F':' '{pr
 #初始化配置文件、下载镜像
 kubeadm config print init-defaults > /opt/kubeadm.yaml
 sed -i "12s/1.2.3.4/${local_ip}/g" /opt/kubeadm.yaml
-sed -i "32s/k8s.gcr.io/registry.aliyuncs.com\/google_containers/g" kubeadm.yaml
+sed -i "32s/k8s.gcr.io/registry.aliyuncs.com\/google_containers/g" /opt/kubeadm.yaml
 sed -i "36a\  podSubnet: 10.244.0.0/16" /opt/kubeadm.yaml
 kubeadm config images pull --config /opt/kubeadm.yaml
 

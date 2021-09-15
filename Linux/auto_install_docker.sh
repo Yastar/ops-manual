@@ -16,6 +16,7 @@ net.ipv4.ip_forward=1
 vm.max_map_count=262144
 EOF
 
+sed -i "14s/net.ipv4.ip_forward = 0/net.ipv4.ip_forward = 1/g" /etc/sysctl.conf
 modprobe br_netfilter
 sysctl -p /etc/sysctl.d/docker.conf
 

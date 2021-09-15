@@ -1,0 +1,16 @@
+---
+- hosts: k8s-master
+  tasks:
+    - name: yum install wget
+      yum:
+        name: wget
+        state: present
+    - name: wget kube-flannel file
+      command: "wget -O /opt/kube-flannel.yml https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml"
+    - name: copy auto_install_k8s_master.sh
+      copy:
+        src: /root/auto_install_k8s_master.sh
+        dest: /opt/scripts/
+        mode: 0755
+    - name: run scripts
+      command: "/bin/bash /opt/scripts/auto_install_k8s_master.sh"
