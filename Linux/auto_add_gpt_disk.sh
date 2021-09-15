@@ -15,7 +15,7 @@ ESXU
 
 sleep 3s
 
-/sbin/mkfs.ext4 ${new_disk_path}1
+/sbin/mkfs.xfs ${new_disk_path}1
 
 if [ $? = 0 ];then
     echo "finished"
@@ -27,7 +27,7 @@ sleep 1s
 
 new_disk_uuid=` blkid ${new_disk_path}1 | awk '{print$2}' `
 
-echo "${new_disk_uuid} /data    ext4    defaults    0 0" >> /etc/fstab
+echo "${new_disk_uuid} /data    xfs    defaults    0 0" >> /etc/fstab
 
 sleep 1s
 
