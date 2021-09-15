@@ -2,8 +2,9 @@
 
 #抓取主机信息
 local_ip=`hostname -I | awk '{print$1}'`
-local_interface_name=`ip addr | grep '^[0-9]' | egrep 'ens|eth' | awk -F':' '{print$2}'`
+local_interface_name=`ip addr | grep '^[0-9]' | egrep 'ens|eth' | awk -F':' '{print$2}' | sed 's/^ //g'`
 init_file="/opt/kubeadm.yaml"
+
 #初始化配置文件、下载镜像
 kubeadm config print init-defaults > ${init_file}
 sed -i "12s/1.2.3.4/${local_ip}/g" ${init_file}
